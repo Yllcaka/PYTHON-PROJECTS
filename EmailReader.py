@@ -1,0 +1,11 @@
+import imapclient,pyzmail
+check = imapclient.IMAPClient("imap.gmail.com", ssl= True)
+check.login("yllcaka1516457@gmail.com","Yllcaka-1516457@")
+check.select_folder("INBOX", readonly = True)
+uniqueIDs = check.search(['ALL'])
+print(uniqueIDs)
+rawMessage = check.fetch([2],['BODY[]','FLAGS'])
+print(rawMessage)
+message = pyzmail.PyzMessage.factory(rawMessage[2][b'BODY[]'])
+print(message.get_address("to"))
+print(message.text_part.get_payload().decode('UTF-8'))

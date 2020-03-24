@@ -8,6 +8,7 @@ soup = bs4.BeautifulSoup(site.text,"html.parser")
 countries = soup.select("#covid19-container > table > tbody > tr > th")
 cases = soup.select("#covid19-container > table > tbody > tr > td")
 excel = openpyxl.Workbook()
+# old = openpyxl.load_workbook("CoronaVirus.x")
 sheet = excel.active
 sheet.merge_cells("A1:A2")
 sheet["A1"],sheet["A1"].font = "Corona Virus",Font(color=colors.RED)
@@ -41,6 +42,9 @@ for i,j in enumerate(cases):
         starter = 0
         number+=1
 # sheet.column_dimensions.width = 20
+for i in sheet["A1":"C120"]:
+    for j in i:
+        print(j.value)
 excel.save("CoronaVirus.xlsx")
 choice = input("Do you wanna look at the data? ")
 if choice.upper().startswith("Y"):
