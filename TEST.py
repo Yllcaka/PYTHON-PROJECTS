@@ -1,3 +1,4 @@
+import time
 def middle(list,target:'Number to be found') ->"Binary search using recursion" :
     mid = len(list)//2
     list.sort()
@@ -14,6 +15,9 @@ try:
     number = int(input("Enter a number"))
     list = list.split(",")
     list = [int(''.join(element.split(" "))) for element in list]
+    starttime = time.time()
     print(middle(list , number))
+    endtime = time.time()
+    print(f"The time is {endtime-starttime}")
 except Exception as e:
     print("The program couldn't execute because of:",e)
