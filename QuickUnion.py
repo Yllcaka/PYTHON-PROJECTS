@@ -17,11 +17,11 @@ def root(number) -> "me gjet rrenjen e Trees":
     global idList
     while number != idList[number]:
         number = idList[number]
-        print(number, idList[number],a)
+        # print(number, idList[number],a)
         a+=1
     return number
 
-idList = quickFindUF(10)
+idList = quickFindUF(10000000)
 unionQU(2,1)
 unionQU(4,2)
 unionQU(7,2)
@@ -29,5 +29,13 @@ unionQU(9,3)
 unionQU(5,8)
 unionQU(6,8)
 unionQU(0,5)
-print(idList)
+unionQU(3,100)
+unionQU(4,500)
+unionQU(99,23)
+unionQU(9,3)
+unionQU(3,83)
+unionQU(83,8)
+unionQU(8,5)
+
+# print(idList)
 print(connected(1,7))
