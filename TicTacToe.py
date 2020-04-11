@@ -29,9 +29,10 @@ def checker(b):
     return False
 
 def playerSetup():
+    O = "O" if os.name == "nt" else "○"
     selectPlayer = input("'X' or '○'").upper()
-    player1 = "○" if selectPlayer == "O" else "X"
-    player2 = "X" if player1 == "○" else "○"
+    player1 = O if selectPlayer == "O" else "X"
+    player2 = "X" if player1 == O else O
     return (player1,player2)
 
 def game(p1,p2):
