@@ -1,5 +1,4 @@
 import os
-from numpy import reshape
 
 
 def board():
@@ -19,7 +18,7 @@ def checker(b):
         b = b.replace(i,"|")
     b = b.split("|")
     b = [i for i in b if i != ""]
-    b = reshape(b,(3,3))
+    b = [b[:3],b[3:6],b[6:]]
     for i in range(3):
         if (b[i][0] == b[i][1] == b[i][2]) or\
            (b[0][i] == b[1][i] == b[2][i]) or\
