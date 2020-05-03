@@ -1,4 +1,4 @@
-import pygame, copy
+import pygame, copy, ctypes
 import random as r
 from time import sleep
 black = (0,0,0)
@@ -10,9 +10,6 @@ def firstArray(col,row):
     return [[r.randint(0,1) for i in range(row)] for i in range(col)]
         
 def fate(spot,x,y,cols,rows):
-    """
-    This 
-    """
     sum = 0
     for i in range(-1,2):
         for j in range(-1,2):
@@ -33,16 +30,18 @@ def fate(spot,x,y,cols,rows):
 pygame.init()
 cols = 0
 rows = 0
-resolution = 20
+resolution = 10
 m = 1
 
-width = 1400
-height = 800
+user32 = ctypes.windll.user32
+screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
+width,height = screensize
 cols = width//resolution
 rows = height//resolution
 life = firstArray(cols,rows)
 windowSize = (width-m,height-m)
-screen = pygame.display.set_mode(windowSize)
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
 pygame.display.set_caption("Game of Life")
 
@@ -65,7 +64,7 @@ while running:
     for i in range(cols):
         for j in range(rows):
             current[i][j] = fate(life,i,j,cols,rows)
-    sleep(0.05)
+    # sleep(0.05)
     life = copy.deepcopy(current)
    
     pygame.display.flip()

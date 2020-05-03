@@ -1,5 +1,8 @@
-import pygame, copy
+import pygame,ctypes
 from time import sleep
+
+
+
 
 class Ant:
     def __init__(self,arr:list,direction:str,x,y):
@@ -22,18 +25,21 @@ class Ant:
         return DirectionCounterClockWise[dir] if color ==1 else DirectionClockWise[dir] 
 
     def move(self):
-        if self.position == 1:
-            self.arr[self.x][self.y] = 0
-            self.direction = self.changeAntDirection(1,self.direction+"begin")
-            self.x,self.y = self.antPosition(self.direction)
-            self.position = self.arr[self.x][self.y]
-            
-            self.arr[self.x][self.y] =1
-        elif self.position == 0:
-            self.arr[self.x][self.y] = 1         
-            self.direction = self.changeAntDirection(0,self.direction+"begin")
-            self.x,self.y = self.antPosition(self.direction)
-            self.position = self.arr[self.x][self.y]
+        try:
+            if self.position == 1:
+                self.arr[self.x][self.y] = 0
+                self.direction = self.changeAntDirection(1,self.direction+"begin")
+                self.x,self.y = self.antPosition(self.direction)
+                self.position = self.arr[self.x][self.y]
+                
+                self.arr[self.x][self.y] =1
+            elif self.position == 0:
+                self.arr[self.x][self.y] = 1         
+                self.direction = self.changeAntDirection(0,self.direction+"begin")
+                self.x,self.y = self.antPosition(self.direction)
+                self.position = self.arr[self.x][self.y]
+        except:
+            self.position = self.arr[len(self.arr) - self.x][len(self.arr) - self.y]
 
             
 
@@ -49,6 +55,10 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 
+user32 = ctypes.windll.user32
+screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
+print(screensize)
 
 pygame.init()
 cols = 0
@@ -56,13 +66,12 @@ rows = 0
 resolution = 10
 m = 1
 
-width = 1400
-height = 1000
+width,height = screensize
 cols = height//resolution
 rows = width//resolution
-
+print()
 windowSize = (width-m,height-m)
-screen = pygame.display.set_mode(windowSize)
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 
 running = True
 current = make2dArray(cols,rows)
@@ -84,6 +93,7 @@ while running:
             x = i*resolution
             y = j*resolution
             pygame.draw.rect(screen,color,[x,y,resolution-m,resolution-m])
+            pygame.draw.rect(screen,red,[ANT.x*resolution,ANT.y*resolution,resolution-m,resolution-m])
     ANT.move()
     current = ANT.arr
     # sleep(1)
